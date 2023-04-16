@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+      AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+      AZURE_STORAGE_DOMAIN:  ${{ secrets.AZURE_STORAGE_DOMAIN }}
+      BUILD_ON_GITHUB:  ${{ secrets.BUILD_ON_GITHUB }}
+      INDEX_PAGE_REVALIDATION_INTERVAL_IN_SECONDS: ${{ secrets.INDEX_PAGE_REVALIDATION_INTERVAL_IN_SECONDS }}
+      APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secrets.INDEX_PAGE_REVALIDATION_INTERVAL_IN_SECONDS }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      # Runs a single command using the runners shell
+      - name: Build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+
+  deploy-to-DO:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      DIGITALOCEAN_APP_ID: ${{ secrets.DIGITALOCEAN_APP_ID }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Deploy
+        run: doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --wait
+
+  notify-sentry:
+    needs: deploy-to-DO
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Sentry Release
+      uses: getsentry/action-release@v1.0.0
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      with:
+        environment: production
+        sourcemaps: ./src
+        version: "v0.6.0"
