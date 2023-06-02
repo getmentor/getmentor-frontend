@@ -51,6 +51,7 @@ function onSponsorsShown(isVisible) {
 export default function Home({ pageMentors }) {
   const [mentors, searchInput, hasMoreMentors, setSearchInput, showMoreMentors, appliedFilters] =
     useMentors(pageMentors)
+
   useEffect(() => {
     analytics.event('Visit Index Page')
   }, [])

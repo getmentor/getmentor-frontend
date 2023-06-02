@@ -1,6 +1,6 @@
 export default {
   BASE_URL: {
-    development: 'http://localhost:3000/',
+    development: 'http://localhost:8000/',
     production: 'https://getmentor.dev/',
   }[process.env.NODE_ENV],
 

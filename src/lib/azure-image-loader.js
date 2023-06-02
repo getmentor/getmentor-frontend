@@ -1,12 +1,15 @@
-import getAllMentors from '../assets-stub/datas.js'
-
 const TEST = process.env.NEXT_PUBLIC_TESTING_MODE
 
 export function imageLoader({ src, width, quality }) {
   if (TEST === 'on') {
-    const mentors = getAllMentors
-    const mentor = mentors.find((el) => el.slug === src)
-    return mentor.photo_url
+    let size = 1200
+    if (quality === 'large') {
+      size = 900
+    } else if (quality === 'small') {
+      size = 40
+    }
+
+    return `${src}/${size}/${size}`
   }
 
   const STORAGE_DOMAIN = process.env.NEXT_PUBLIC_AZURE_STORAGE_DOMAIN

@@ -1,11 +1,16 @@
-/**
- * @type {import('next').NextConfig}
- */
-const nextConfig = {
-  /* настройки */
+module.exports = {
+  images: {
+    domains: [
+      'placekitten.com',
+      'via.placeholder.com',
+      'placebeard.it',
+      'dummyimage.com',
+      'loremflickr.com',
+      'baconmockup.com',
+      'placebear.com',
+    ],
+  },
 }
-
-module.exports = nextConfig
 
 /*
 const { withSentryConfig } = require('@sentry/nextjs')

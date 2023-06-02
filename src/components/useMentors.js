@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import filters from '../config/filters'
+import rub from '../test_datas/util.js'
 
 export default function useMentors(allMentors, pageSize = 48) {
   const [searchInput, setSearchInput] = useState('')
@@ -72,7 +73,9 @@ export default function useMentors(allMentors, pageSize = 48) {
   if (selectedPrice) {
     const priceFilters = filters.byPrice[selectedPrice]
 
-    filteredMentors = filteredMentors.filter((mentor) => priceFilters?.includes(mentor.price))
+    filteredMentors = filteredMentors.filter((mentor) =>
+      priceFilters?.includes(`${mentor.price} ${rub(mentor)}`)
+    )
   }
 
   const mentors = filteredMentors.slice(0, mentorsCount)

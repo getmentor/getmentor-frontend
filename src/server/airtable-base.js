@@ -1,5 +1,4 @@
 import Airtable from 'airtable'
-import getAllMentors from '../assets-stub/datas.js'
 
 const TEST = process.env.NEXT_PUBLIC_TESTING_MODE
 
