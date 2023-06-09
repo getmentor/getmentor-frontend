@@ -8,8 +8,8 @@ const loadingMentors = async () => {
     const result = await axios.get(routes.mentorsPath())
     state.mentors.push(...result.data.data.mentors)
     console.log(result.data.data.specializations)
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    console.log(err)
   }
 }
 
