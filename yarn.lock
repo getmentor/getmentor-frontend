@@ -1713,6 +1713,11 @@
     prosemirror-transform "^1.7.0"
     prosemirror-view "^1.28.2"
 
+"@tiptap/prosemirror-tables@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/@tiptap/prosemirror-tables/-/prosemirror-tables-1.1.4.tgz"
+  integrity sha512-O2XnDhZV7xTHSFxMMl8Ei3UVeCxuMlbGYZ+J2QG8CzkK8mxDpBa66kFr5DdyAhvdi1ptpcH9u7/GMwItQpN4sA==
+
 "@tiptap/react@^2.0.0-beta.114":
   version "2.0.0-beta.114"
   resolved "https://registry.npmjs.org/@tiptap/react/-/react-2.0.0-beta.114.tgz"
