@@ -1,7 +1,7 @@
 import Multiselect from 'multiselect-react-dropdown'
 import { useForm, Controller } from 'react-hook-form'
 import Wysiwyg from './Wysiwyg'
-import filters from '../config/filters'
+//import filters from '../config/filters'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
@@ -9,7 +9,7 @@ import ReactTooltip from 'react-tooltip'
 
 const Url = require('url')
 
-export default function ProfileForm({ mentor, isLoading, isError, onSubmit }) {
+export default function ProfileForm({ mentor, isLoading, isError, onSubmit, filters }) {
   const {
     control,
     register,

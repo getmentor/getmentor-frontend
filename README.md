@@ -18,4 +18,4 @@ npm run build
 NEXT_PUBLIC_TESTING_MODE
 ```
 
-### [Try the application on test-deploy branch](https://getmentor-frontend-git-test-deploy-abra19.vercel.app/)
+### [Try the application on test-deploy branch](https://getmentor-frontend.vercel.app/)

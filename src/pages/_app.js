@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import TagManager from 'react-gtm-module'
 import { AppInsightsContext } from '@microsoft/applicationinsights-react-js'
 import { reactPlugin } from '../lib/appinsights'

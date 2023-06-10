@@ -17,12 +17,21 @@ import analytics from '../lib/analytics'
 import MetaHeader from '../components/MetaHeader'
 import seo from '../config/seo'
 import VisibilitySensor from 'react-visibility-sensor'
+import { loadingSpecializations, loadingExperiences, loadingPrices } from '../datas/datas_loader'
+import makeFilter from '../config/makeFilter'
 
 export async function getServerSideProps(context) {
   const pageMentors = await getAllMentors({ onlyVisible: true })
+  const specializations = await loadingSpecializations()
+  const prices = await loadingPrices()
+  const experiences = await loadingExperiences()
+
   return {
     props: {
       pageMentors,
+      specializations,
+      prices,
+      experiences,
     },
   }
 }
@@ -48,9 +57,9 @@ function onSponsorsShown(isVisible) {
   if (isVisible) analytics.event('Sponsors Banner Shown')
 }
 
-export default function Home({ pageMentors }) {
+export default function Home({ pageMentors, specializations, prices, experiences }) {
   const [mentors, searchInput, hasMoreMentors, setSearchInput, showMoreMentors, appliedFilters] =
-    useMentors(pageMentors)
+    useMentors(pageMentors, makeFilter(specializations, prices, experiences))
 
   useEffect(() => {
     analytics.event('Visit Index Page')
@@ -150,7 +159,12 @@ export default function Home({ pageMentors }) {
         </div>
 
         <div className="mb-8">
-          <MentorsFilters appliedFilters={appliedFilters} />
+          <MentorsFilters
+            appliedFilters={appliedFilters}
+            specializations={specializations}
+            prices={prices}
+            experiences={experiences}
+          />
         </div>
 
         <MentorsList

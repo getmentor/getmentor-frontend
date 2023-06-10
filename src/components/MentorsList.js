@@ -2,16 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import pluralize from '../lib/pluralize'
 import { imageLoader } from '../lib/azure-image-loader'
-import rub from '../test_datas/util.js'
+import rub from '../lib/util.js'
 
 export default function MentorsList(props) {
   const { mentors, hasMore, onClickMore } = props
-
-  mentors.forEach((mentor) => {
-    const tags = mentor.specializations.map((el) => el.name)
-    mentor.tags = tags
-  })
-  console.log(mentors)
 
   return (
     <>

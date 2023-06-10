@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import filters from '../config/filters'
-import rub from '../test_datas/util.js'
+//import filters from '../config/filters'
+import rub from '../lib/util.js'
 
-export default function useMentors(allMentors, pageSize = 48) {
+export default function useMentors(allMentors, filters, pageSize = 48) {
   const [searchInput, setSearchInput] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [mentorsCount, setMentorsCount] = useState(pageSize)
@@ -71,7 +71,7 @@ export default function useMentors(allMentors, pageSize = 48) {
 
   // filter by price
   if (selectedPrice) {
-    const priceFilters = filters.byPrice[selectedPrice]
+    const priceFilters = filters.selectPrice[selectedPrice]
 
     filteredMentors = filteredMentors.filter((mentor) =>
       priceFilters?.includes(`${mentor.price} ${rub(mentor)}`)

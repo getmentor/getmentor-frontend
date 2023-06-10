@@ -148,9 +148,6 @@ export async function updateMentor(recordId, mentor) {
 }
 
 function getMentorSponsor(tags) {
-  if (TEST === 'on') {
-    return null
-  }
   const sponsors = []
   tags.forEach((t) => {
     if (allFilters.sponsors.includes(t)) {

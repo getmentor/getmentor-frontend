@@ -8,7 +8,6 @@ export function imageLoader({ src, width, quality }) {
     } else if (quality === 'small') {
       size = 40
     }
-
     return `${src}/${size}/${size}`
   }
 

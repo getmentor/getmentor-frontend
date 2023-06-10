@@ -7,11 +7,12 @@ import Section from '../components/Section'
 import Footer from '../components/Footer'
 import { getOneMentorById } from '../server/mentors-data'
 import seo from '../config/seo'
-import filters from '../config/filters'
 import Notification from '../components/Notification'
 import Error from 'next/error'
 import analytics from '../lib/analytics'
 import Link from 'next/link'
+import { loadingSpecializations, loadingExperiences, loadingPrices } from '../datas/datas_loader'
+import makeFilters from '../config/makeFilter'
 
 export async function getServerSideProps(context) {
   context.query.id = parseInt(context.query.id, 10)
@@ -30,13 +31,16 @@ export async function getServerSideProps(context) {
       props: { errorCode: 403, mentor: null },
     }
   }
+  const specializations = await loadingSpecializations()
+  const prices = await loadingPrices()
+  const experiences = await loadingExperiences()
 
   return {
-    props: { errorCode: 0, mentor },
+    props: { errorCode: 0, mentor, specializations, prices, experiences },
   }
 }
 
-export default function Profile({ errorCode, mentor }) {
+export default function Profile({ errorCode, mentor, specializations, prices, experiences }) {
   useEffect(() => {
     if (mentor) {
       analytics.event('Open Profile', {
@@ -100,6 +104,7 @@ export default function Profile({ errorCode, mentor }) {
   if (errorCode) {
     return <Error statusCode={403} title="Access denied" />
   }
+  const filters = makeFilters(specializations, prices, experiences)
 
   return (
     <>
@@ -127,6 +132,7 @@ export default function Profile({ errorCode, mentor }) {
               ...mentor,
               tags: mentor.tags.filter((tag) => !filters.sponsors.includes(tag)),
             }}
+            filters={filters}
             isLoading={readyStatus === 'loading'}
             isError={readyStatus === 'error'}
             onSubmit={onSubmit}
