@@ -10,18 +10,26 @@ import Section from '../../../components/Section'
 import { Markup } from 'interweave'
 import MetaHeader from '../../../components/MetaHeader'
 import seo from '../../../config/seo'
-import allFilters from '../../../config/filters'
 import analytics from '../../../lib/analytics'
 import { htmlContent } from '../../../lib/html-content'
 import { polyfill } from 'interweave-ssr'
 import pluralize from '../../../lib/pluralize'
 import { imageLoader } from '../../../lib/azure-image-loader'
+import {
+  loadingSpecializations,
+  loadingExperiences,
+  loadingPrices,
+} from '../../../datas/datas_loader.js'
+import makeFilter from '../../../config/makeFilter.js'
 
 // This enables rendering profile HTML on server
 polyfill()
 
 export async function getServerSideProps(context) {
-  const mentor = await getOneMentorBySlug(context.params.slug)
+  const mentor = await getOneMentorBySlug(context.query.slug)
+  const specializations = await loadingSpecializations()
+  const prices = await loadingPrices()
+  const experiences = await loadingExperiences()
 
   if (!mentor) {
     return {
@@ -32,13 +40,19 @@ export async function getServerSideProps(context) {
   return {
     props: {
       mentor,
+      specializations,
+      prices,
+      experiences,
     },
   }
 }
 
 export default function Mentor(props) {
-  const mentor = props.mentor
+  const { mentor, specializations, prices, experiences } = props
+
   const title = mentor.name + ' | ' + seo.title
+
+  const allFilters = makeFilter(specializations, prices, experiences)
 
   useEffect(() => {
     analytics.event('View Mentor Page', {
@@ -56,6 +70,11 @@ export default function Mentor(props) {
       menteeCount: mentor.menteeCount,
     })
   }, [])
+
+  const price =
+    mentor.price === 'Бесплатно' || mentor.price === 'По договоренности'
+      ? mentor.price
+      : `${mentor.price} руб`
 
   return (
     <>
@@ -95,7 +114,12 @@ export default function Mentor(props) {
             </div>
 
             <div className="mb-4 md:hidden">
-              <Image className="w-full" src={imageLoader({ src: mentor.slug, quality: 'full' })} />
+              <Image
+                className="w-full"
+                src={imageLoader({ src: mentor.photo_url, quality: 'full' })}
+                width="1200"
+                height="1200"
+              />
             </div>
 
             {!mentor.isVisible && (
@@ -105,7 +129,7 @@ export default function Mentor(props) {
             <div className="mb-4">
               <b>Опыт:</b> {mentor.experience} лет
               <br />
-              <b>Цена (за час):</b> {mentor.price}
+              <b>Цена (за час):</b> {price}
               <br />
               {mentor.menteeCount > 0 && (
                 <>
@@ -163,7 +187,11 @@ export default function Mentor(props) {
           </div>
 
           <div className="flex-1 pl-4 hidden md:block">
-            <Image src={imageLoader({ src: mentor.slug, quality: 'large' })} />
+            <Image
+              src={imageLoader({ src: mentor.photo_url, quality: 'large' })}
+              width="900"
+              height="900"
+            />
           </div>
         </div>
       </Section>

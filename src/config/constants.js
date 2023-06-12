@@ -6,3 +6,5 @@ export default {
 
   CACHE_REFRESH_INTERVAL: 1 * 60 * 1000,
 }
+
+export const pageSizeConst = 48

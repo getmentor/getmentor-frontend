@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-//import filters from '../config/filters'
+import { pageSizeConst } from '../config/constants.js'
 import rub from '../lib/util.js'
 
-export default function useMentors(allMentors, filters, pageSize = 48) {
+export default function useMentors(allMentors, filters, pageSize = pageSizeConst) {
   const [searchInput, setSearchInput] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [mentorsCount, setMentorsCount] = useState(pageSize)
