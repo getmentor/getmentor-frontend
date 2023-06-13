@@ -99,6 +99,8 @@ export default function OrderMentor({ mentor }) {
 
     setFormData({ ...data })
 
+    console.log(data) /////
+
     fetch('/api/contact-mentor', {
       method: 'POST',
       body: JSON.stringify({
@@ -127,6 +129,11 @@ export default function OrderMentor({ mentor }) {
       })
   }
 
+  const price =
+    mentor.price === 'Бесплатно' || mentor.price === 'По договоренности'
+      ? mentor.price
+      : `${mentor.price} руб`
+
   return (
     <>
       <Head>
@@ -145,7 +152,7 @@ export default function OrderMentor({ mentor }) {
             <div className="w-full sm:w-32">
               <div className="aspect-w-1 aspect-h-1 relative">
                 <Image
-                  src={imageLoader({ src: mentor.slug, quality: 'large' })}
+                  src={imageLoader({ src: mentor.photo_url, quality: 'large' })}
                   alt={mentor.name}
                   layout="fill"
                   objectFit="cover"
@@ -162,7 +169,7 @@ export default function OrderMentor({ mentor }) {
               <div className="mb-4">
                 <b>Опыт:</b> {mentor.experience} лет
                 <br />
-                <b>Цена:</b> {mentor.price}
+                <b>Цена:</b> {price}
                 <br />
               </div>
             </div>

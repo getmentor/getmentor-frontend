@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import pluralize from '../lib/pluralize'
 import { imageLoader } from '../lib/azure-image-loader'
+import rub from '../lib/util.js'
 
 export default function MentorsList(props) {
   const { mentors, hasMore, onClickMore } = props
@@ -14,10 +15,10 @@ export default function MentorsList(props) {
             <div target="_blank" className="link-image">
               <div className="aspect-w-5 aspect-h-4 bg-center bg-cover bg-no-repeat">
                 <Image
-                  src={imageLoader({ src: mentor.slug, quality: 'large' })}
+                  src={imageLoader({ src: mentor.photo_url, quality: 'large' })}
                   alt={mentor.name}
                   placeholder="blur"
-                  blurDataURL={imageLoader({ src: mentor.slug, quality: 'small' })}
+                  blurDataURL={imageLoader({ src: mentor.photo_url, quality: 'small' })}
                   layout="fill"
                   objectFit="cover"
                 />
@@ -30,7 +31,9 @@ export default function MentorsList(props) {
                 </div>
 
                 <div>😎 {mentor.experience} лет опыта</div>
-                <div>💰 {mentor.price}</div>
+                <div>
+                  💰 {mentor.price} {rub(mentor)}
+                </div>
                 {mentor.menteeCount > 0 && (
                   <div>
                     🤝 {mentor.menteeCount}{' '}

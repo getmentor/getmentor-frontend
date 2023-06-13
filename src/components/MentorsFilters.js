@@ -1,15 +1,19 @@
 import classNames from 'classnames'
-import allFilters from '../config/filters'
 import analytics from '../lib/analytics'
 import { useEffect } from 'react'
 import FilterGroupDropdown from './FilterGroupDropdown'
+import makeFilters from '../config/makeFilter'
 
 export default function MentorsFilters(props) {
+  const { specializations, prices, experiences } = props
+
   const defaultProps = {
     tags: [],
     experiences: [],
     allowSponsors: true,
   }
+
+  const allFilters = makeFilters(specializations, prices, experiences)
 
   const { allowSponsors, appliedFilters } = { ...defaultProps, ...props }
 
@@ -126,54 +130,21 @@ export default function MentorsFilters(props) {
             })}
           </>
         )}
+        {Object.keys(allFilters.byTags).map((key) => {
+          if (key !== 'rest') {
+            return (
+              <li key={key}>
+                <FilterGroupDropdown
+                  title={key}
+                  values={allFilters.byTags[key]}
+                  onFilterSelect={onClickTag}
+                  allSelectedValues={appliedFilters.tags.values}
+                />
+              </li>
+            )
+          }
+        })}
 
-        <li>
-          <FilterGroupDropdown
-            title="Development"
-            values={allFilters.byTags.development}
-            onFilterSelect={onClickTag}
-            allSelectedValues={appliedFilters.tags.values}
-          />
-        </li>
-
-        <li>
-          <FilterGroupDropdown
-            title="Management"
-            values={allFilters.byTags.management}
-            onFilterSelect={onClickTag}
-            allSelectedValues={appliedFilters.tags.values}
-          />
-        </li>
-
-        <li>
-          <FilterGroupDropdown
-            title="DevOps"
-            values={allFilters.byTags.ops}
-            onFilterSelect={onClickTag}
-            allSelectedValues={appliedFilters.tags.values}
-          />
-        </li>
-
-        <li>
-          <FilterGroupDropdown
-            title="HR"
-            values={allFilters.byTags.hr}
-            onFilterSelect={onClickTag}
-            allSelectedValues={appliedFilters.tags.values}
-          />
-        </li>
-
-        <li>
-          <FilterGroupDropdown
-            title="Marketing"
-            values={allFilters.byTags.marketing}
-            onFilterSelect={onClickTag}
-            allSelectedValues={appliedFilters.tags.values}
-          />
-        </li>
-        {/* </ul>
-
-      <ul className="flex flex-wrap justify-left -m-1 mb-3"> */}
         {allFilters.byTags.rest.map((tag) => {
           const isActive = appliedFilters.tags.values.includes(tag)
 
@@ -208,7 +179,7 @@ export default function MentorsFilters(props) {
         <li>
           <FilterGroupDropdown
             title="Цена"
-            values={Object.keys(allFilters.byPrice)}
+            values={Object.keys(allFilters.selectPrice)}
             onFilterSelect={onClickPrice}
             allSelectedValues={appliedFilters.price.values}
             multiSelect={false}

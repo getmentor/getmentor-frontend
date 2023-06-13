@@ -1,8 +1,10 @@
 export default {
   BASE_URL: {
-    development: 'http://localhost:3000/',
+    development: 'http://localhost:8000/',
     production: 'https://getmentor.dev/',
   }[process.env.NODE_ENV],
 
   CACHE_REFRESH_INTERVAL: 1 * 60 * 1000,
 }
+
+export const pageSizeConst = 48

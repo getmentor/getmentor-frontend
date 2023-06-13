@@ -2,14 +2,13 @@ import fetch from 'node-fetch'
 import constants from '../config/constants'
 import { getMentors as api_getMentors } from '../pages/api/internal/mentors'
 
-import getAllTestMentors from '../assets-stub/datas.js'
-import { getMentorById, getMentorBySlug } from '../assets-stub/datas'
+import { loadingMentors, getMentorById, getMentorBySlug } from '../datas/datas_loader.js'
 
 const TEST = process.env.NEXT_PUBLIC_TESTING_MODE
 
 export async function getAllMentors(params) {
   if (TEST === 'on') {
-    return getAllTestMentors
+    return loadingMentors()
   }
   return fakeApiCall(params)
 }

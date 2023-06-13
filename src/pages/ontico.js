@@ -17,7 +17,6 @@ import { useEffect } from 'react'
 
 export async function getServerSideProps(context) {
   const allMentors = await getAllMentors({ onlyVisible: true })
-
   const pageMentors = allMentors.filter((mentor) => mentor.tags.includes('Сообщество Онтико'))
 
   return {

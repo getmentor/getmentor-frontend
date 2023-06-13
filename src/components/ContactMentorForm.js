@@ -130,7 +130,7 @@ export default function ContactMentorForm({ isLoading, isError, onSubmit }) {
           может с вами связаться.
         </p>
       </div>
-
+      {/*
       <input
         type="hidden"
         {...register('recaptchaToken', { required: true })}
@@ -142,6 +142,7 @@ export default function ContactMentorForm({ isLoading, isError, onSubmit }) {
         onChange={handleCaptchaOnChange}
         hl="ru"
       />
+        */}
 
       {isError && (
         <div className="text-red-700">
