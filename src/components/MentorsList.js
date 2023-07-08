@@ -15,10 +15,10 @@ export default function MentorsList(props) {
             <div target="_blank" className="link-image">
               <div className="aspect-w-5 aspect-h-4 bg-center bg-cover bg-no-repeat">
                 <Image
-                  src={imageLoader({ src: mentor.photo_url, quality: 'large' })}
+                  src={imageLoader({ src: null || mentor.photoUrl, quality: 'large' })}
                   alt={mentor.name}
                   placeholder="blur"
-                  blurDataURL={imageLoader({ src: mentor.photo_url, quality: 'small' })}
+                  blurDataURL={imageLoader({ src: null || mentor.photoUrl, quality: 'small' })}
                   layout="fill"
                   objectFit="cover"
                 />
