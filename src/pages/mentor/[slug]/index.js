@@ -116,7 +116,7 @@ export default function Mentor(props) {
             <div className="mb-4 md:hidden">
               <Image
                 className="w-full"
-                src={imageLoader({ src: mentor.photo_url, quality: 'full' })}
+                src={imageLoader({ src: null || mentor.photoUrl, quality: 'full' })}
                 width="1200"
                 height="1200"
               />
@@ -188,7 +188,7 @@ export default function Mentor(props) {
 
           <div className="flex-1 pl-4 hidden md:block">
             <Image
-              src={imageLoader({ src: mentor.photo_url, quality: 'large' })}
+              src={imageLoader({ src: null || mentor.photoUrl, quality: 'large' })}
               width="900"
               height="900"
             />
