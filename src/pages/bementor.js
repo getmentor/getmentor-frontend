@@ -26,8 +26,6 @@ export default function Bementor() {
   const title = 'Стань частью нашей команды | ' + seo.title
   const router = useRouter()
 
-  console.log(mentorsUrl)
-
   const signupSchema = yup.object({
     name: yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
     email: yup.string().email('Неправильный формат email').required('Обязательное поле'),
