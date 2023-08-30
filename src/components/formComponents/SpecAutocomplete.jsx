@@ -2,11 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ListGroup, Form } from 'react-bootstrap';
 
 function getOptionsValues(options) {
-  const newArr = [];
-
-  options.forEach((option) => {
+  const newArr = options.map((option) => {
     const [, , name] = Object.values(option);
-    newArr.push(name);
+    return name;
   });
 
   return newArr;
