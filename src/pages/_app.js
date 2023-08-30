@@ -8,6 +8,8 @@ import TagManager from 'react-gtm-module'
 import { AppInsightsContext } from '@microsoft/applicationinsights-react-js'
 import { reactPlugin } from '../lib/appinsights'
 import { ToastContainer } from 'react-toastify'
+import { appWithTranslation } from 'next-i18next'
+import nextI18NextConfig from '../../next-i18next.config.js'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -33,4 +35,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp, nextI18NextConfig)
