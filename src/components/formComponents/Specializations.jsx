@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, ListGroup, Button } from 'react-bootstrap';
 
 import SpecializationsModal from './SpecializationsModal.jsx';
 import specializationList from './specializationList.js';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 function Tag({ name, onClick }) {
   return (
@@ -12,15 +13,9 @@ function Tag({ name, onClick }) {
       style={{ width: '300px', height: '30.5px', textIndent: '10px' }}
     >
       {name}
-      <Button
-        variant="white"
-        className="rounded-pill"
-        onClick={onClick}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
-          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-        </svg>
-      </Button>
+      <div className="d-flex mr-2">
+        <CloseButton onClick={onClick} />
+      </div>
     </ListGroup.Item>
   )
 }
@@ -28,7 +23,7 @@ function Tag({ name, onClick }) {
 export default function Specializations({ formik, tag }) {
   const [showModal, setShowModal] = useState(false);
   const [tags, setTags] = useState([]);
-  const [specList, setSpecList] = useState([]);
+  const [specList, setSpecList] = useState(specializationList);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -67,10 +62,6 @@ export default function Specializations({ formik, tag }) {
       return newTags;
     });
   };
-
-  useEffect(() => {
-    setSpecList(specializationList);
-  }, []);
 
   return (
     <Form.Group>
