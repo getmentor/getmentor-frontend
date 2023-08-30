@@ -1,9 +1,12 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import i18nextConfig from '../../next-i18next.config.js'
 
 export default class MyDocument extends Document {
   render() {
+    const currentLocale = this.props.__NEXT_DATA__.locale ?? i18nextConfig.i18n.defaultLocale
+
     return (
-      <Html>
+      <Html lang={currentLocale}>
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap"
