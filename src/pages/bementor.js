@@ -20,11 +20,21 @@ import seo from '../config/seo'
 import analytics from '../lib/analytics'
 import routes from '../server/routes.js'
 
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 const mentorsUrl = process.env.NEXT_PUBLIC_MENTORS_BACKEND_URL
+
+export const getServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'ru', ['common', 'form'])),
+  },
+})
 
 export default function Bementor() {
   const title = 'Стань частью нашей команды | ' + seo.title
   const router = useRouter()
+  const { t, i18n } = useTranslation(['common', 'form'])
 
   const signupSchema = yup.object({
     name: yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
@@ -130,7 +140,7 @@ export default function Bementor() {
               className="formHeader p-3 text-center rounded-top border-bottom"
               style={{ backgroundColor: '#ffffd3' }}
             >
-              Стать ментором
+              {t('form:title')}
             </h1>
             <Form noValidate onSubmit={formik.handleSubmit}>
               <Row className="mb-3 pb-3 pl-2 pr-2 pt-3 mx-auto">
