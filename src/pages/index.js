@@ -23,7 +23,7 @@ import makeFilter from '../config/makeFilter'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 // import i18n (needs to be bundled))
-import './i18n'
+import './i18n.js'
 
 export async function getServerSideProps(context) {
   const pageMentors = await getAllMentors({ onlyVisible: true })
