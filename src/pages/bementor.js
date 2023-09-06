@@ -34,7 +34,7 @@ export const getServerSideProps = async ({ locale }) => ({
 export default function Bementor() {
   const title = 'Стань частью нашей команды | ' + seo.title
   const router = useRouter()
-  const { t, i18n } = useTranslation(['common', 'form'])
+  const { t } = useTranslation(['common', 'form'])
 
   const signupSchema = yup.object({
     name: yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
@@ -120,12 +120,12 @@ export default function Bementor() {
 
       <Section className="bg-primary-100" id="header">
         <div className="text-center py-14 lg:w-3/4 mx-auto">
-          <h1>Стань частью нашей команды</h1>
+          <h1>{t('formHeader.header', { ns: 'form' })}</h1>
 
           <p>
-            Помогать другим – почётно и круто. Спасибо, что хотите этим заниматься.
+            {t('formHeader.subHeaderTop', { ns: 'form' })}
             <br />
-            Заполните форму ниже, и мы обязательно рассмотрим вашу заявку как можно скорее.
+            {t('formHeader.subHeaderBottom', { ns: 'form' })}
           </p>
         </div>
       </Section>
@@ -140,13 +140,13 @@ export default function Bementor() {
               className="formHeader p-3 text-center rounded-top border-bottom"
               style={{ backgroundColor: '#ffffd3' }}
             >
-              {t('form:title')}
+              {t('title', { ns: 'form' })}
             </h1>
             <Form noValidate onSubmit={formik.handleSubmit}>
               <Row className="mb-3 pb-3 pl-2 pr-2 pt-3 mx-auto">
                 <Form.Group className="col">
                   <Form.Label className="formLabel ml-2">
-                    <b>Имя и фамилия</b>
+                    <b>{t('name.nameInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <Form.Floating className="mb-3">
@@ -160,7 +160,7 @@ export default function Bementor() {
                       isInvalid={formik.touched.name && formik.errors.name}
                       className="rounded-0 shadow-sm"
                     />
-                    <label htmlFor="name">Отобразится в вашей карточке</label>
+                    <label htmlFor="name">{t('name.nameInputLabel', { ns: 'form' })}</label>
 
                     <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                       {formik.errors.name || null}
@@ -170,7 +170,7 @@ export default function Bementor() {
 
                 <Form.Group className="col">
                   <Form.Label className="formLabel ml-2">
-                    <b>Электронная почта</b>
+                    <b>{t('email.emailInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <Form.Floating className="mb-3">
@@ -184,7 +184,7 @@ export default function Bementor() {
                       isInvalid={formik.touched.email && formik.errors.email}
                       className="rounded-0 shadow-sm"
                     />
-                    <label htmlFor="name">На неё мы пришлём приглашение</label>
+                    <label htmlFor="name">{t('email.emailInputLabel', { ns: 'form' })}</label>
 
                     <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                       {formik.errors.email || null}
@@ -196,7 +196,7 @@ export default function Bementor() {
               <Row className="mb-3 pb-3 pl-2 pr-2 pt-3 mx-auto">
                 <Form.Group className="col">
                   <Form.Label className="formLabel ml-2">
-                    <b>Ник в Telegram (без @)</b>
+                    <b>{t('telegramUsername.telegramUsernameInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <Form.Floating className="mb-3">
@@ -210,7 +210,9 @@ export default function Bementor() {
                       isInvalid={formik.touched.telegramUsername && formik.errors.telegramUsername}
                       className="rounded-0 shadow-sm"
                     />
-                    <label htmlFor="name">Чтобы наш бот присылал заявки</label>
+                    <label htmlFor="name">
+                      {t('telegramUsername.telegramUsernameInputLabel', { ns: 'form' })}
+                    </label>
 
                     <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                       {formik.errors.telegramUsername || null}
@@ -220,7 +222,7 @@ export default function Bementor() {
 
                 <Form.Group className="col">
                   <Form.Label className="formLabel ml-2">
-                    <b>Фото для профиля</b>
+                    <b>{t('photoUrl.photoUrlInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <Form.Floating className="mb-3">
@@ -234,7 +236,7 @@ export default function Bementor() {
                       isInvalid={formik.touched.photoUrl && formik.errors.photoUrl}
                       className="rounded-0 shadow-sm"
                     />
-                    <label htmlFor="name">Лучше ту, где вы по центру (не более 2mb)</label>
+                    <label htmlFor="name">{t('photoUrl.photoUrlInputLabel', { ns: 'form' })}</label>
 
                     <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                       {formik.errors.photoUrl || null}
@@ -246,7 +248,7 @@ export default function Bementor() {
               <Row className="mb-3 pb-3 pl-2 pr-2 pt-3 mx-auto">
                 <Form.Group className="col mb-3">
                   <Form.Label className="formLabel ml-2">
-                    <b>Место работы</b>
+                    <b>{t('workplaceInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <Form.Control
@@ -267,7 +269,7 @@ export default function Bementor() {
 
                 <Form.Group className="col mb-3">
                   <Form.Label className="formLabel ml-2">
-                    <b>Должность</b>
+                    <b>{t('jobInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <Form.Control
@@ -289,14 +291,11 @@ export default function Bementor() {
 
               <Form.Group className="mb-3 pb-3 pl-5 pr-5">
                 <Form.Label className="formLabel ml-2">
-                  <b>Расскажите о себе</b>
+                  <b>{t('about.aboutInput', { ns: 'form' })}</b>
                 </Form.Label>
 
                 <div className="ml-2 pb-2">
-                  <Form.Text>
-                    Желательно два-три абзаца: где работали, что интересует в профессиональном поле,
-                    каких методик в менторстве придерживаетесь
-                  </Form.Text>
+                  <Form.Text>{t('about.aboutInputLabel', { ns: 'form' })}</Form.Text>
                 </div>
                 <Form.Control
                   as="textarea"
@@ -317,7 +316,7 @@ export default function Bementor() {
 
               <Form.Group className="mb-3 pb-3 pl-5 pr-5">
                 <Form.Label className="formLabel ml-2">
-                  <b>С чем вы можете помочь?</b>
+                  <b>{t('description.descriptionInput', { ns: 'form' })}</b>
                 </Form.Label>
 
                 <div className="ml-2 pb-2">
