@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 
 import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default function Footer() {
   const router = useRouter()
@@ -41,15 +40,20 @@ export default function Footer() {
           <Link href="/disclaimer">
             <div className="link">Отказ от ответственности</div>
           </Link>
+        </div>
 
-          <DropdownButton
+        <Dropdown>
+          <Dropdown.Toggle
             variant="outline-white"
             size="sm"
             drop="end"
             className="border-0"
             id="dropdown-item-button"
-            title={t('common:languageSwitcher')}
           >
+            {t('languageSwitcher', { ns: 'common' })}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
             <Dropdown.Item
               as="button"
               onClick={() => {
@@ -67,8 +71,8 @@ export default function Footer() {
             >
               English
             </Dropdown.Item>
-          </DropdownButton>
-        </div>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     </footer>
   )
