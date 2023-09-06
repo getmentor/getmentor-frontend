@@ -1,3 +1,33 @@
 {
-  "title": "Стать ментором"
+  "formHeader": {
+    "header": "Стань частью нашей команды",
+    "subHeaderTop": "Помогать другим - почётно и круто. Спасибо, что хотите этим заниматься",
+    "subHeaderBottom": "Заполните форму ниже, и мы обязательно рассмотрим вашу заявку как можно скорее!"
+  },
+  "title": "Стать ментором",
+  "name": {
+    "nameInput": "Имя и фамилия",
+    "nameInputLabel": "Отобразится в вашей карточке"
+  },
+  "email": {
+    "emailInput": "Электронная почта",
+    "emailInputLabel": "На неё мы пришлём приглашение"
+  },
+  "telegramUsername": {
+    "telegramUsernameInput": "Ник в Telegram (без @)",
+    "telegramUsernameInputLabel": "Чтобы наш бот присылал заявки"
+  },
+  "photoUrl": {
+    "photoUrlInput": "Фото для профиля",
+    "photoUrlInputLabel": "Лучше ту, где вы по центру"
+  },
+  "workplaceInput": "Место работы",
+  "jobInput": "Должность",
+  "about": {
+    "aboutInput": "Расскажите о себе",
+    "aboutInputLabel": "Желательно два-три абзаца: где работали, что интересует в профессиональном поле, каких методик в менторстве придерживаетесь"
+  },
+  "description": {
+    "descriptionInput": "С чем вы можете помочь?"
+  }
 }

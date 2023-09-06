@@ -1,3 +1,33 @@
 {
-  "title": "Become a mentor"
+  "formHeader": {
+    "header": "Become a part of our crew",
+    "subHeaderTop": "Helping others is an honor and incredibly cool. Thanks for wanting to do this",
+    "subHeaderBottom": "Please fill out the form below and we will review your application as soon as possible!"
+  },
+  "title": "Become a mentor",
+  "name": {
+    "nameInput": "First and last name",
+    "nameInputLabel": "Will be shown on your card"
+  },
+  "email": {
+    "emailInput": "Email",
+    "emailInputLabel": "We will send an invitation to it"
+  },
+  "telegramUsername": {
+    "telegramUsernameInput": "Telegram nickname (without @)",
+    "telegramUsernameInputLabel": "Our bot will send applications"
+  },
+  "photoUrl": {
+    "photoUrlInput": "Profile photo",
+    "photoUrlInputLabel": "Better one where you are in the center"
+  },
+  "workplaceInput": "Workplace",
+  "jobInput": "Position at work",
+  "about": {
+    "aboutInput": "Tell us about yourself",
+    "aboutInputLabel": "Two or three paragraphs are desirable: where did you work, what interests you in the professional field, what methods do you follow in mentoring"
+  },
+  "description": {
+    "descriptionInput": "What can you help with?"
+  }
 }
