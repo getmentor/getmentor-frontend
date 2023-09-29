@@ -10,6 +10,7 @@ import { reactPlugin } from '../lib/appinsights'
 import { ToastContainer } from 'react-toastify'
 import { appWithTranslation } from 'next-i18next'
 import nextI18NextConfig from '../../next-i18next.config.js'
+import { NextUIProvider } from '@nextui-org/react'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -29,8 +30,10 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <AppInsightsContext.Provider value={reactPlugin}>
-      <Component {...pageProps} />
-      <ToastContainer />
+      <NextUIProvider>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </NextUIProvider>
     </AppInsightsContext.Provider>
   )
 }
