@@ -25,32 +25,66 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const mentorsUrl = process.env.NEXT_PUBLIC_MENTORS_BACKEND_URL
 
-export const getServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'ru', ['common', 'form'])),
-  },
-})
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'form', 'formErrors', 'toastify'])),
+      // Will be passed to the page component as props
+    },
+  }
+}
 
 export default function Bementor() {
-  const title = 'Стань частью нашей команды | ' + seo.title
   const router = useRouter()
-  const { t } = useTranslation(['common', 'form'])
+  const { t } = useTranslation(['common', 'form', 'formErrors', 'toastify'])
+
+  const title = `${t('formHeader.header', { ns: 'form' })} | ` + seo.title
 
   const signupSchema = yup.object({
-    name: yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
-    email: yup.string().email('Неправильный формат email').required('Обязательное поле'),
-    telegramUsername: yup.string().min(4, 'Не менее 4 символов').required('Обязательное поле'),
-    photoUrl: yup.string().url('Должна быть ссылкой').required('Обязательное поле'),
-    job: yup.string().min(4, 'Не менее 4 символов').required('Обязательное поле'),
-    workplace: yup.string().min(4, 'Не менее 4 символов').required('Обязательное поле'),
-    about: yup.string().min(20, 'Не менее 20 символов').required('Обязательное поле'),
-    description: yup.string().min(20, 'Не менее 20 символов').required('Обязательное поле'),
+    name: yup
+      .string()
+      .min(6, t('nameError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    email: yup
+      .string()
+      .email(t('emailError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    telegramUsername: yup
+      .string()
+      .min(4, t('telegramUsernameError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    photoUrl: yup
+      .string()
+      .url(t('photoUrlError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    job: yup
+      .string()
+      .min(4, t('jobError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    workplace: yup
+      .string()
+      .min(4, t('workplaceError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    about: yup
+      .string()
+      .min(20, t('aboutError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    description: yup
+      .string()
+      .min(20, t('descriptionError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
     specializations: yup
       .array()
-      .min(1, 'Минимум 1 специализация')
-      .max(5, 'Не более 5 специализаций'),
-    competencies: yup.string().min(5, 'Не менее 4 символов').required('Обязательное поле'),
-    linkToCalendar: yup.string().url('Должна быть ссылкой').required('Обязательное поле'),
+      .min(1, t('specializations.minError', { ns: 'formErrors' }))
+      .max(5, t('specializations.maxError', { ns: 'formErrors' })),
+    competencies: yup
+      .string()
+      .min(5, t('competenciesError', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
+    linkToCalendar: yup
+      .string()
+      .url(t('linkToCalendar', { ns: 'formErrors' }))
+      .required(t('requiredError', { ns: 'formErrors' })),
     policy: yup.boolean().oneOf([true]),
   })
 
@@ -97,7 +131,7 @@ export default function Bementor() {
           },
         })
 
-        showToast('Вы успешно создали анкету', 'success')
+        showToast(t('showSuccessToast', { ns: 'toastify' }), 'success')
         return router.push('/')
       } catch (error) {
         console.error(error.message)
@@ -113,7 +147,7 @@ export default function Bementor() {
     <>
       <Head>
         <title>{title}</title>
-        <MetaHeader customTitle="Стань частью нашей команды" />
+        <MetaHeader customTitle={t('formHeader.header', { ns: 'form' })} />
       </Head>
 
       <NavHeader className="bg-primary-100" />
@@ -321,12 +355,13 @@ export default function Bementor() {
 
                 <div className="ml-2 pb-2">
                   <Form.Text>
-                    Лучше разделить текст на пункты
+                    {t('description.descriptionTxt1', { ns: 'form' })}
                     <br />
-                    Например: <b>Помогу Senior-разработчикам и лидерам команд</b> <br />—
-                    разобраться в Kubernetes
-                    <br />— наладить процессы в команде
-                    <br />— выбрать оптимальную стратегию для развития стартапа
+                    {t('description.descriptionTxt2-1', { ns: 'form' })}:{' '}
+                    <b>{t('description.descriptionTxt2-2', { ns: 'form' })}</b>
+                    <br />— {t('description.descriptionTxt3', { ns: 'form' })}
+                    <br />— {t('description.descriptionTxt4', { ns: 'form' })}
+                    <br />— {t('description.descriptionTxt5', { ns: 'form' })}
                   </Form.Text>
                 </div>
                 <Form.Control
@@ -349,11 +384,11 @@ export default function Bementor() {
               <Row className="mb-3 pb-3 pl-2 pr-2 pt-3 mx-auto">
                 <Form.Group className="col">
                   <Form.Label className="formLabel ml-2">
-                    <b>Опыт</b>
+                    <b>{t('experience.experienceInput', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <div className="ml-2 pb-2">
-                    <Form.Text>Сколько лет вы в профессии?</Form.Text>
+                    <Form.Text>{t('experience.experienceInputLabel', { ns: 'form' })}</Form.Text>
                   </div>
                   <Form.Control
                     as="select"
@@ -380,11 +415,11 @@ export default function Bementor() {
 
                 <Form.Group className="col">
                   <Form.Label className="formLabel ml-2">
-                    <b>Стоимость консультации</b>
+                    <b>{t('price.priceHeader', { ns: 'form' })}</b>
                   </Form.Label>
 
                   <div className="ml-2 pb-2">
-                    <Form.Text>Во сколько вы оцениваете час консультации?</Form.Text>
+                    <Form.Text>{t('price.priceSubHeader', { ns: 'form' })}</Form.Text>
                   </div>
                   <Form.Control
                     as="select"
@@ -412,11 +447,13 @@ export default function Bementor() {
 
               <Form.Group className="mb-3 pb-3 pl-5 pr-5">
                 <Form.Label className="formLabel ml-2">
-                  <b>Специализация</b>
+                  <b>{t('specialization.specializationHeader', { ns: 'form' })}</b>
                 </Form.Label>
 
                 <div className="ml-2 pb-2">
-                  <Form.Text>Выберите не более 5 тегов, в чем вы сильны</Form.Text>
+                  <Form.Text>
+                    {t('specialization.specializationSubHeader', { ns: 'form' })}
+                  </Form.Text>
                 </div>
 
                 <Specializations formik={formik} tag="specializations" />
@@ -424,13 +461,11 @@ export default function Bementor() {
 
               <Form.Group className="mb-3 pb-3 pl-5 pr-5">
                 <Form.Label className="formLabel ml-2">
-                  <b>Навыки и технологии</b>
+                  <b>{t('competencies.competenciesHeader', { ns: 'form' })}</b>
                 </Form.Label>
 
                 <div className="ml-2 pb-2">
-                  <Form.Text>
-                    Перечислите через запятую навыки, по которым хотите консультировать
-                  </Form.Text>
+                  <Form.Text>{t('competencies.competenciesSubHeader', { ns: 'form' })}</Form.Text>
                 </div>
                 <Form.Floating className="mb-3">
                   <Form.Control
@@ -443,7 +478,9 @@ export default function Bementor() {
                     isInvalid={formik.touched.competencies && formik.errors.competencies}
                     className="rounded-0 shadow-sm"
                   />
-                  <label htmlFor="name">Например: JavaScript, React, Leadership, Code Review</label>
+                  <label htmlFor="name">
+                    {t('competencies.competenciesInputLabel', { ns: 'form' })}
+                  </label>
 
                   <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                     {formik.errors.competencies || null}
@@ -453,14 +490,11 @@ export default function Bementor() {
 
               <Form.Group className="mb-3 pb-3 pl-5 pr-5">
                 <Form.Label className="formLabel ml-2">
-                  <b>Ссылка на календарь</b>
+                  <b>{t('calendar.calendarHeader', { ns: 'form' })}</b>
                 </Form.Label>
 
                 <div className="ml-2 pb-2">
-                  <Form.Text>
-                    Укажите ссылку на ваш календарь (например Calendly.com). Тогда соискатели смогут
-                    записаться к вам на встречу
-                  </Form.Text>
+                  <Form.Text>{t('calendar.calendarSubHeader', { ns: 'form' })}</Form.Text>
                 </div>
                 <Form.Control
                   type="url"
@@ -480,21 +514,22 @@ export default function Bementor() {
 
               <Form.Group className="mb-3 pb-3 pl-5 pr-5">
                 <Form.Label className="formLabel ml-2">
-                  <b>Соглашение с политикой конфиденциальности</b>
+                  <b>{t('policy.policyHeader', { ns: 'form' })}</b>
                 </Form.Label>
 
                 <div className="ml-2 pb-2">
                   <Form.Text>
-                    Нажимая на кнопку, вы даёте согласие на обработку персональных данных и
-                    соглашаетесь c{' '}
-                    <a href="https://getmentor.dev/privacy">политикой конфиденциальности</a> нашего
-                    сайта
+                    {t('policy.policySubHeader1-1', { ns: 'form' })}{' '}
+                    <a href="https://getmentor.dev/privacy">
+                      {t('policy.policyLink', { ns: 'form' })}
+                    </a>{' '}
+                    {t('policy.policySubHeader1-2', { ns: 'form' })}
                   </Form.Text>
                 </div>
                 <Form.Check
                   type="checkbox"
                   id="policy"
-                  label="Соглашаюсь"
+                  label={t('policy.policyCheckbox', { ns: 'form' })}
                   onChange={formik.handleChange}
                   value={formik.values.policy}
                   onBlur={formik.handleBlur}
@@ -509,7 +544,7 @@ export default function Bementor() {
               </Form.Group>
 
               <div className="formLabel text-center p-3 mb-5 rounded-3">
-                <SubmitButton text="Отправить заявку" />
+                <SubmitButton text={t('subminButton', { ns: 'form' })} />
               </div>
             </Form>
           </div>
