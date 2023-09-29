@@ -28,6 +28,42 @@
     "aboutInputLabel": "Желательно два-три абзаца: где работали, что интересует в профессиональном поле, каких методик в менторстве придерживаетесь"
   },
   "description": {
-    "descriptionInput": "С чем вы можете помочь?"
-  }
+    "descriptionInput": "С чем вы можете помочь?",
+    "descriptionTxt1": "Лучше разделить текст на пункты",
+    "descriptionTxt2-1": "Например",
+    "descriptionTxt2-2": "Помогу Senior-разработчикам и лидерам команд",
+    "descriptionTxt3": "разобраться в Kubernetes",
+    "descriptionTxt4": "наладить процессы в команде",
+    "descriptionTxt5": "выбрать оптимальную стратегию для развития стартапа"
+  },
+  "experience": {
+    "experienceInput": "Опыт",
+    "experienceInputLabel": "Сколько лет вы в профессии?"
+  },
+  "price": {
+    "priceHeader": "Стоимость консультации",
+    "priceSubHeader": "Во сколько вы оцениваете час консультации?"
+  },
+  "specialization": {
+    "specializationHeader": "Специализация",
+    "specializationSubHeader": "Выберите не более 5 тегов, в чем вы сильны",
+    "specializationButton": "добавить"
+  },
+  "competencies": {
+    "competenciesHeader": "Навыки и технологии",
+    "competenciesSubHeader": "Перечислите через запятую навыки, по которым хотите консультировать",
+    "competenciesInputLabel": "Например: JavaScript, React, Лидерство, Код-ревью"
+  },
+  "calendar": {
+    "calendarHeader": "Ссылка на календарь",
+    "calendarSubHeader": "Укажите ссылку на ваш календарь (например Calendly.com). Тогда соискатели смогут записаться к вам на встречу"
+  },
+  "policy": {
+    "policyHeader": "Соглашение с политикой конфиденциальности",
+    "policySubHeader1-1": "Нажимая на кнопку, вы даёте согласие на обработку персональных данных и соглашаетесь c",
+    "policyLink": "политикой конфиденциальности",
+    "policySubHeader1-2": "нашего сайта",
+    "policyCheckbox": "Соглашаюсь"
+  },
+  "subminButton": "Оставить заявку"
 }

@@ -1,0 +1,17 @@
+{
+  "requiredError": "Required",
+  "nameError": "At least 6 characters",
+  "emailError": "Incorrect email format",
+  "telegramUsernameError": "At least 4 characters",
+  "photoUrlError": "Must be a link",
+  "jobError": "At least 4 characters",
+  "workplaceError": "At least 4 characters",
+  "aboutError": "At least 20 characters",
+  "descriptionError": "At least 20 characters",
+  "specializations": {
+    "minError": "At least 1 specialization",
+    "maxError": "No more than 5 specializations"
+  },
+  "competenciesError": "At least 4 characters",
+  "linkToCalendar": "Must be a link"
+}

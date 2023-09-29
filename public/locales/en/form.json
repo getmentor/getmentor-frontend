@@ -2,7 +2,7 @@
   "formHeader": {
     "header": "Become a part of our crew",
     "subHeaderTop": "Helping others is an honor and incredibly cool. Thanks for wanting to do this",
-    "subHeaderBottom": "Please fill out the form below and we will review your application as soon as possible!"
+    "subHeaderBottom": "Please fill out the form below and we will review your request as soon as possible!"
   },
   "title": "Become a mentor",
   "name": {
@@ -28,6 +28,42 @@
     "aboutInputLabel": "Two or three paragraphs are desirable: where did you work, what interests you in the professional field, what methods do you follow in mentoring"
   },
   "description": {
-    "descriptionInput": "What can you help with?"
-  }
+    "descriptionInput": "What can you help with?",
+    "descriptionTxt1": "It's better to divide the text into tiles",
+    "descriptionTxt2-1": "For example",
+    "descriptionTxt2-2": "Could help Senior Developers and Team Leaders",
+    "descriptionTxt3": "to figure out with Kubernetes",
+    "descriptionTxt4": "establish team processes",
+    "descriptionTxt5": "choose the optimal strategy for startup development"
+  },
+  "experience": {
+    "experienceInput": "Experience",
+    "experienceInputLabel": "How many years have you been in the profession?"
+  },
+  "price": {
+    "priceHeader": "Consultation cost",
+    "priceSubHeader": "Cost per hour of your consultation"
+  },
+  "specialization": {
+    "specializationHeader": "Specializations",
+    "specializationSubHeader": "Select no more than 5 tags which you are strong in",
+    "specializationButton": "add"
+  },
+  "competencies": {
+    "competenciesHeader": "Skills and technologies",
+    "competenciesSubHeader": "List the skills you would like to consult on, separated by commas",
+    "competenciesInputLabel": "For example: JavaScript, React, Leadership, Code-review"
+  },
+  "calendar": {
+    "calendarHeader": "Link to calendar",
+    "calendarSubHeader": "Provide a link to your calendar (e.g. Calendly.com). Then mentees will be able to make an appointment with you"
+  },
+  "policy": {
+    "policyHeader": "Privacy policy agreement",
+    "policySubHeader1-1": "By clicking the button, you consent to the processing of personal data and agree with",
+    "policyLink": "privacy policy",
+    "policySubHeader1-2": "of our website",
+    "policyCheckbox": "I agree"
+  },
+  "subminButton": "Submit application"
 }

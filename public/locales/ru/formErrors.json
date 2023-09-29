@@ -1,0 +1,17 @@
+{
+  "requiredError": "Обязательное поле",
+  "nameError": "Не менее 6 символов",
+  "emailError": "Неправильный формат email",
+  "telegramUsernameError": "Не менее 4 символов",
+  "photoUrlError": "Должна быть ссылкой",
+  "jobError": "Не менее 4 символов",
+  "workplaceError": "Не менее 4 символов",
+  "aboutError": "Не менее 20 символов",
+  "descriptionError": "Не менее 20 символов",
+  "specializations": {
+    "minError": "Минимум 1 специализация",
+    "maxError": "Не более 5 специализаций"
+  },
+  "competenciesError": "Не менее 5 символов",
+  "linkToCalendar": "Должна быть ссылкой"
+}
