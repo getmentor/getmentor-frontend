@@ -5,6 +5,8 @@ import SpecializationsModal from './SpecializationsModal.jsx';
 import specializationList from './specializationList.js';
 import CloseButton from 'react-bootstrap/CloseButton';
 
+import { useTranslation } from 'next-i18next';
+
 function Tag({ name, onClick }) {
   return (
     <ListGroup.Item
@@ -24,6 +26,8 @@ export default function Specializations({ formik, tag }) {
   const [showModal, setShowModal] = useState(false);
   const [tags, setTags] = useState([]);
   const [specList, setSpecList] = useState(specializationList);
+
+  const { t } = useTranslation(['common', 'form', 'formErrors', 'toastify']);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -76,7 +80,7 @@ export default function Specializations({ formik, tag }) {
         className={formik.touched.specializations && formik.errors.specializations ? "rounded-0" : "border-0"}
       >
         <Button variant="light border rounded-0" onClick={handleShowModal} className="mb-3">
-          + добавить
+          + {t('specialization.specializationButton', { ns: 'form' })}
         </Button>
 
         {tags && tags.map((tag) => (<Tag key={tag} name={tag} onClick={() => handleDeleteTag(tag)} />))}
