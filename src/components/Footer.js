@@ -1,79 +1,86 @@
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
-
-import Dropdown from 'react-bootstrap/Dropdown'
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react'
 
 export default function Footer() {
   const router = useRouter()
-  const { t } = useTranslation(['common', 'form'])
+  const { pathname, asPath, query, locale } = router
 
-  const { pathname, asPath, query } = router
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]))
+
+  useEffect(() => {
+    const currentLocale = locale === 'ru' ? 'Русский 🇷🇺' : 'English 🇬🇧'
+
+    setSelectedKeys(new Set(currentLocale))
+  }, [locale])
 
   return (
     <footer className="bg-primary-100" data-section="footer">
       <div className="py-8 text-center text-sm">
         <div>
-          <a className="link" href="https://t.me/getmentor_dev" target="_blank" rel="noreferrer">
+          <Link className="link" href="https://t.me/getmentor_dev">
             Telegram
-          </a>
+          </Link>
           {' | '}
-          <a
-            className="link"
-            href="https://www.facebook.com/getmentor.dev"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <Link className="link" href="https://www.facebook.com/getmentor.dev">
             Facebook
-          </a>
+          </Link>
           {' | '}
-          <a className="link" href="mailto:hello@getmentor.dev">
+          <Link className="link" href="mailto:hello@getmentor.dev">
             Email
-          </a>
-        </div>
-        <div>
-          <Link href="/privacy">
-            <div className="link">Политика в отношении персональных данных</div>
           </Link>
         </div>
         <div>
-          <Link href="/disclaimer">
-            <div className="link">Отказ от ответственности</div>
+          <Link className="link" href="/privacy">
+            Политика в отношении персональных данных
           </Link>
         </div>
+        <div>
+          <Link className="link" href="/disclaimer">
+            Отказ от ответственности
+          </Link>
 
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="outline-white"
-            size="sm"
-            drop="end"
-            className="border-0"
-            id="dropdown-item-button"
-          >
-            {t('languageSwitcher', { ns: 'common' })}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item
-              as="button"
-              onClick={() => {
-                router.push({ pathname, query }, asPath, { locale: 'ru' })
-              }}
+          <Dropdown className="px-unit-2 py-unit-1 min-w-unit-3xl">
+            <DropdownTrigger>
+              <Button variant="light" color="primary">
+                {selectedKeys}
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu
+              aria-label="Single selection"
+              variant="flat"
+              disallowEmptySelection
+              selectionMode="single"
+              selectedKeys={selectedKeys}
+              onSelectionChange={setSelectedKeys}
             >
-              Русский
-            </Dropdown.Item>
+              <DropdownItem
+                key="Русский"
+                onClick={() => {
+                  router.push({ pathname, query }, asPath, { locale: 'ru' })
+                }}
+              >
+                Русский 🇷🇺
+              </DropdownItem>
 
-            <Dropdown.Item
-              as="button"
-              onClick={() => {
-                router.push({ pathname, query }, asPath, { locale: 'en' })
-              }}
-            >
-              English
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+              <DropdownItem
+                key="English"
+                onClick={() => {
+                  router.push({ pathname, query }, asPath, { locale: 'en' })
+                }}
+              >
+                English 🇬🇧
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
       </div>
     </footer>
   )
+}
+
+Footer.getInitialProps = async ({ query }) => {
+  const { locale } = query
+  return { locale }
 }
