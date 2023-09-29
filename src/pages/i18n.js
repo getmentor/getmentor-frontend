@@ -14,6 +14,8 @@ i18n
   // init i18next
   .init({
     fallbackLng: 'ru',
+    ns: ['common', 'form', 'formErrors', 'toastify'],
+    defaultNS: 'common',
     debug: true,
   })
 
