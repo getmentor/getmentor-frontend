@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react'
+import LanguageIcon from '@mui/icons-material/Language'
+import Image from 'next/image'
 
 export default function Footer() {
   const router = useRouter()
@@ -10,9 +12,8 @@ export default function Footer() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]))
 
   useEffect(() => {
-    const currentLocale = locale === 'ru' ? 'Русский 🇷🇺' : 'English 🇬🇧'
-
-    setSelectedKeys(new Set(currentLocale))
+    const currentLocale = locale === 'ru' ? 'Русский' : 'English'
+    setSelectedKeys(new Set([currentLocale]))
   }, [locale])
 
   return (
@@ -31,19 +32,27 @@ export default function Footer() {
             Email
           </Link>
         </div>
+
         <div>
           <Link className="link" href="/privacy">
             Политика в отношении персональных данных
           </Link>
         </div>
+
         <div>
           <Link className="link" href="/disclaimer">
             Отказ от ответственности
           </Link>
+        </div>
 
+        <div>
           <Dropdown className="px-unit-2 py-unit-1 min-w-unit-3xl">
             <DropdownTrigger>
-              <Button variant="light" color="primary">
+              <Button
+                variant="light"
+                color="primary"
+                startContent={<LanguageIcon fontSize="small" />}
+              >
                 {selectedKeys}
               </Button>
             </DropdownTrigger>
@@ -60,8 +69,9 @@ export default function Footer() {
                 onClick={() => {
                   router.push({ pathname, query }, asPath, { locale: 'ru' })
                 }}
+                startContent={<Image src="/images/ru.webp" alt="russian" width={40} height={27} />}
               >
-                Русский 🇷🇺
+                Русский
               </DropdownItem>
 
               <DropdownItem
@@ -69,8 +79,9 @@ export default function Footer() {
                 onClick={() => {
                   router.push({ pathname, query }, asPath, { locale: 'en' })
                 }}
+                startContent={<Image src="/images/gb.webp" alt="english" width={40} height={27} />}
               >
-                English 🇬🇧
+                English
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
