@@ -10,9 +10,9 @@ import MetaHeader from '../components/MetaHeader.js'
 import NavHeader from '../components/NavHeader.js'
 import Footer from '../components/Footer.js'
 import Section from '../components/Section.js'
-import experienceSelect from '../components/formComponents/experienceSelect.js'
-import pricesSelect from '../components/formComponents/pricesSelect.js'
 import Specializations from '../components/formComponents/Specializations.jsx'
+import Experiences from '../components/formComponents/Experiences.jsx'
+import Prices from '../components/formComponents/Prices.jsx'
 import SubmitButton from '../components/formComponents/SubmitButton.jsx'
 import showToast from '../components/toast/showToast.js'
 
@@ -23,7 +23,7 @@ import routes from '../server/routes.js'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const mentorsUrl = process.env.NEXT_PUBLIC_MENTORS_BACKEND_URL
+const apiUrl = process.env.NEXT_PUBLIC_MENTORS_BACKEND_URL
 
 export async function getServerSideProps({ locale }) {
   return {
@@ -39,6 +39,10 @@ export default function Bementor() {
   const { t } = useTranslation(['common', 'form', 'formErrors', 'toastify'])
 
   const title = `${t('formHeader.header', { ns: 'form' })} | ` + seo.title
+
+  useEffect(() => {
+    analytics.event('Visit Bementor Page')
+  }, [])
 
   const signupSchema = yup.object({
     name: yup
@@ -99,9 +103,9 @@ export default function Bementor() {
       about: '',
       description: '',
       competencies: '',
-      experience: experienceSelect.defaultOption,
+      experience: '',
       specializations: [],
-      price: pricesSelect.defaultOption,
+      price: '',
       linkToCalendar: '',
       policy: false,
     },
@@ -124,7 +128,7 @@ export default function Bementor() {
           linkToCalendar: values.linkToCalendar,
         }
 
-        await axios.post(`${mentorsUrl}${routes.mentorsPath()}`, formData, {
+        await axios.post(`${apiUrl}${routes.mentorsPath()}`, formData, {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -138,10 +142,6 @@ export default function Bementor() {
       }
     },
   })
-
-  useEffect(() => {
-    analytics.event('Visit Bementor Page')
-  }, [])
 
   return (
     <>
@@ -390,23 +390,14 @@ export default function Bementor() {
                   <div className="ml-2 pb-2">
                     <Form.Text>{t('experience.experienceInputLabel', { ns: 'form' })}</Form.Text>
                   </div>
-                  <Form.Control
-                    as="select"
-                    name="experience"
-                    id="experience"
+
+                  <Experiences
+                    formik={formik}
+                    tag="experiences"
                     onChange={formik.handleChange}
-                    value={formik.values.experience}
                     onBlur={formik.handleBlur}
-                    isInvalid={formik.touched.experience && formik.errors.experience}
-                    style={{ width: '100px' }}
-                    className="rounded-0 shadow-sm"
-                  >
-                    {experienceSelect.options.map(({ id, experience }) => (
-                      <option key={id} value={experience}>
-                        {experience}
-                      </option>
-                    ))}
-                  </Form.Control>
+                    value={formik.values.experience}
+                  />
 
                   <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                     {formik.errors.experience || null}
@@ -421,23 +412,13 @@ export default function Bementor() {
                   <div className="ml-2 pb-2">
                     <Form.Text>{t('price.priceSubHeader', { ns: 'form' })}</Form.Text>
                   </div>
-                  <Form.Control
-                    as="select"
-                    name="price"
-                    id="price"
+
+                  <Prices
+                    formik={formik}
+                    tag="prices"
                     onChange={formik.handleChange}
-                    value={formik.values.price}
                     onBlur={formik.handleBlur}
-                    isInvalid={formik.touched.price && formik.errors.price}
-                    style={{ width: '200px' }}
-                    className="rounded-0 shadow-sm"
-                  >
-                    {pricesSelect.options.map(({ id, price }) => (
-                      <option key={id} value={price}>
-                        {price}
-                      </option>
-                    ))}
-                  </Form.Control>
+                  />
 
                   <Form.Control.Feedback type="invalid" className="invalid-feedback text-center">
                     {formik.errors.experience || null}
