@@ -67,7 +67,13 @@ const galleryPhotos = [
 function Feature({ title, text, imageUrl }) {
   return (
     <div className="text-center p-4">
-      <Image className="inline w-40" src={imageUrl} width={400} height={(400 / 1024) * 220} />
+      <Image
+        className="inline w-40"
+        src={imageUrl}
+        alt="ontico-logo"
+        width={400}
+        height={(400 / 1024) * 220}
+      />
       <p>{text}</p>
     </div>
   )
@@ -95,7 +101,7 @@ export default function Ontico({ pageMentors, specializations, prices, experienc
       <Section id="header">
         <div className="py-14 max-w-screen-lg mx-auto">
           <h1 className="-ml-3">
-            <Image src="/images/ontico.png" alt="Онтико" width={400} height={(400 / 1024) * 220} />
+            <Image src="/images/ontico.png" alt="Ontico" width={400} height={(400 / 1024) * 220} />
           </h1>
 
           <p className="text-3xl leading-relaxed">
@@ -121,6 +127,7 @@ export default function Ontico({ pageMentors, specializations, prices, experienc
           <div className="text-center">
             <Image
               src="ontico/19-09-23_16-19_0674_hcqqsy.jpg"
+              alt="ontico-conference-image"
               width={550}
               height={(1333 / 2000) * 550}
               loader={({ src, width, quality }) => {
@@ -185,6 +192,7 @@ export default function Ontico({ pageMentors, specializations, prices, experienc
             >
               <Image
                 src={photoUrl}
+                alt="ontico-random-photo"
                 width={300}
                 height={200}
                 loader={({ src, width, quality }) => {
@@ -212,6 +220,7 @@ export default function Ontico({ pageMentors, specializations, prices, experienc
           <div className="hidden lg:block">
             <Image
               src="ontico/21-05-17_17-03_0534_L_sj335b.jpg"
+              alt="ontico-mentor-photo"
               width={550}
               height={(1333 / 2000) * 550}
               loader={({ src, width, quality }) => {
