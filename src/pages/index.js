@@ -20,11 +20,18 @@ import VisibilitySensor from 'react-visibility-sensor'
 import { loadingSpecializations, loadingExperiences, loadingPrices } from '../datas/datas_loader'
 import makeFilter from '../config/makeFilter'
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+// import i18n (needs to be bundled))
+import './i18n.js'
+
 export async function getServerSideProps(context) {
   const pageMentors = await getAllMentors({ onlyVisible: true })
   const specializations = await loadingSpecializations()
   const prices = await loadingPrices()
   const experiences = await loadingExperiences()
+  // extract the locale identifier from the URL
+  const { locale } = context
 
   return {
     props: {
@@ -32,6 +39,8 @@ export async function getServerSideProps(context) {
       specializations,
       prices,
       experiences,
+      // pass the translation props to the page component
+      ...(await serverSideTranslations(locale)),
     },
   }
 }
@@ -126,7 +135,7 @@ export default function Home({ pageMentors, specializations, prices, experiences
 
         <div className="flex flex-wrap justify-center items-center">
           {donates.map((donate) => (
-            <a
+            <div
               key={donate.name}
               className="h-20 px-8 flex justify-center items-center"
               href={donate.linkUrl}
@@ -138,13 +147,13 @@ export default function Home({ pageMentors, specializations, prices, experiences
                 width={donate.image.width}
                 height={donate.image.height}
               />
-            </a>
+            </div>
           ))}
         </div>
 
         <div className="text-center mt-4">
           <Link href="/donate">
-            <a className="link">Почему это важно</a>
+            <div className="link">Почему это важно</div>
           </Link>
         </div>
       </Section>

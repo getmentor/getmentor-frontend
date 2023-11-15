@@ -65,7 +65,7 @@ async function getMentorsInternal(formula = '') {
       price: item.fields['Price'],
       menteeCount: item.fields['Done Sessions Count'],
       photo: item.fields['Image_Attachment'][0],
-      photo_url: item.fields['Image'],
+      photoUrl: item.fields['Image'],
       tags: tags,
       sortOrder: item.fields['SortOrder'] || 10000,
       isVisible: item.fields['OnSite'] === 1 && item.fields['Status'] === 'active',
