@@ -14,14 +14,23 @@ import MentorsSearch from '../components/MentorsSearch'
 import MetaHeader from '../components/MetaHeader'
 import analytics from '../lib/analytics'
 import { useEffect } from 'react'
+import Link from 'next/link'
+import makeFilter from '../config/makeFilter'
+import { loadingSpecializations, loadingExperiences, loadingPrices } from '../datas/datas_loader'
 
 export async function getServerSideProps(context) {
   const allMentors = await getAllMentors({ onlyVisible: true })
   const pageMentors = allMentors.filter((mentor) => mentor.tags.includes('Сообщество Онтико'))
+  const specializations = await loadingSpecializations()
+  const prices = await loadingPrices()
+  const experiences = await loadingExperiences()
 
   return {
     props: {
       pageMentors,
+      specializations,
+      prices,
+      experiences,
     },
   }
 }
@@ -58,15 +67,21 @@ const galleryPhotos = [
 function Feature({ title, text, imageUrl }) {
   return (
     <div className="text-center p-4">
-      <Image className="inline w-40" src={imageUrl} />
+      <Image
+        className="inline w-40"
+        src={imageUrl}
+        alt="ontico-logo"
+        width={400}
+        height={(400 / 1024) * 220}
+      />
       <p>{text}</p>
     </div>
   )
 }
 
-export default function Ontico({ pageMentors }) {
+export default function Ontico({ pageMentors, specializations, prices, experiences }) {
   const [mentors, searchInput, hasMoreMentors, setSearchInput, showMoreMentors, appliedFilters] =
-    useMentors(pageMentors)
+    useMentors(pageMentors, makeFilter(specializations, prices, experiences))
 
   useEffect(() => {
     analytics.event('Visit Ontico Page')
@@ -86,7 +101,7 @@ export default function Ontico({ pageMentors }) {
       <Section id="header">
         <div className="py-14 max-w-screen-lg mx-auto">
           <h1 className="-ml-3">
-            <Image src="/images/ontico.png" alt="Онтико" width={400} height={(400 / 1024) * 220} />
+            <Image src="/images/ontico.png" alt="Ontico" width={400} height={(400 / 1024) * 220} />
           </h1>
 
           <p className="text-3xl leading-relaxed">
@@ -96,14 +111,14 @@ export default function Ontico({ pageMentors }) {
 
           <p className="text-3xl lg:text-right font-light">уже 15 лет :)</p>
 
-          <a
+          <Link
             className="button bg-primary-900 mt-6"
             href={ontico_landing_url}
             target="_blank"
             rel="noreferrer"
           >
             Наши конференции
-          </a>
+          </Link>
         </div>
       </Section>
 
@@ -112,6 +127,7 @@ export default function Ontico({ pageMentors }) {
           <div className="text-center">
             <Image
               src="ontico/19-09-23_16-19_0674_hcqqsy.jpg"
+              alt="ontico-conference-image"
               width={550}
               height={(1333 / 2000) * 550}
               loader={({ src, width, quality }) => {
@@ -176,6 +192,7 @@ export default function Ontico({ pageMentors }) {
             >
               <Image
                 src={photoUrl}
+                alt="ontico-random-photo"
                 width={300}
                 height={200}
                 loader={({ src, width, quality }) => {
@@ -203,6 +220,7 @@ export default function Ontico({ pageMentors }) {
           <div className="hidden lg:block">
             <Image
               src="ontico/21-05-17_17-03_0534_L_sj335b.jpg"
+              alt="ontico-mentor-photo"
               width={550}
               height={(1333 / 2000) * 550}
               loader={({ src, width, quality }) => {
@@ -226,7 +244,13 @@ export default function Ontico({ pageMentors }) {
         </div>
 
         <div className="mb-8">
-          <MentorsFilters allowSponsors={false} appliedFilters={appliedFilters} />
+          <MentorsFilters
+            allowSponsors={false}
+            appliedFilters={appliedFilters}
+            specializations={specializations}
+            prices={prices}
+            experiences={experiences}
+          />
         </div>
 
         <MentorsList
@@ -240,14 +264,14 @@ export default function Ontico({ pageMentors }) {
         <Section.Title>Календарь конференций</Section.Title>
 
         <div className="text-center">
-          <a
+          <Link
             className="button bg-primary-900"
             target="_blank"
             href={ontico_landing_url}
             rel="noreferrer"
           >
             Все наши конференции
-          </a>
+          </Link>
         </div>
       </Section>
 

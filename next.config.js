@@ -8,6 +8,7 @@ module.exports = {
       'loremflickr.com',
       'baconmockup.com',
       'placebear.com',
+      'dl.airtable.com',
     ],
   },
 }
